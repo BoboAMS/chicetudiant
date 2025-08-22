@@ -199,7 +199,7 @@ fastify.get('/', async (req, res) => {
 });
 
 // Route pour le formulaire de contact
-fastify.post('/api/contact', async (request, reply) => {
+fastify.post('#', async (request, reply) => {
   const { name, email, projectType, message } = request.body;
 
   const mailOptions = {
