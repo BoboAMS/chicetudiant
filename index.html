@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ChicÉtudiant - Mode chic et abordable pour étudiants</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root{
+      --primary:#4361ee;
+      --secondary:#3f37c9;
+      --accent:#f72585;
+      --light:#f8f9fa;
+      --dark:#0f1223;
+      --success:#2ec4b6;
+      --danger:#e63946;
+      --gray:#6c757d;
+      --light-gray:#e9ecef;
+      --shadow:0 10px 30px rgba(0,0,0,.08);
+      --shadow-lg:0 20px 50px rgba(0,0,0,.12);
+      --transition:all .25s ease;
+      --glass:rgba(255,255,255,.7);
+      --radius:14px;
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:'Poppins',sans-serif;
+      color:var(--dark);
+      background:linear-gradient(180deg,#fafbff 0%,#f5f7ff 100%);
+      line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    .container{width:100%;max-width:1200px;margin:0 auto;padding:0 20px}
+
+    /* Header - glass + sticky */
+    header{
+      position:sticky;top:0;z-index:1000;
+      background:var(--glass);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(255,255,255,.6);
+      box-shadow:var(--shadow);
+    }
+    .header-top{
+      display:flex;justify-content:space-between;align-items:center;padding:14px 0;
+    }
+    .logo{
+      font-family:'Montserrat',sans-serif;font-size:2rem;font-weight:800;color:var(--primary);
+      text-decoration:none;display:flex;align-items:center;gap:10px;
+      letter-spacing:.5px;
+    }
+    .logo i{color:var(--accent)}
+    .search-bar{flex:1;max-width:520px;margin:0 20px;position:relative}
+    .search-bar input{
+      width:100%;padding:12px 50px 12px 18px;border-radius:30px;border:2px solid transparent;
+      background:#fff;box-shadow:inset 0 0 0 1px var(--light-gray);
+      transition:var(--transition);
+    }
+    .search-bar input:focus{border-color:var(--primary);outline:none;box-shadow:0 0 0 4px rgba(67,97,238,.1)}
+    .search-bar button{
+      position:absolute;right:10px;top:50%;transform:translateY(-50%);
+      background:transparent;border:none;color:var(--gray);cursor:pointer;font-size:1.1rem;
+    }
+    .header-icons{display:flex;gap:14px}
+    .icon-btn{
+      position:relative;background:none;border:none;color:var(--dark);
+      font-size:1.3rem;cursor:pointer;transition:var(--transition);width:42px;height:42px;border-radius:50%;
+      display:grid;place-items:center;
+    }
+    .icon-btn:hover{background:#ffffff;box-shadow:var(--shadow);transform:translateY(-1px)}
+    .cart-count{
+      position:absolute;top:-4px;right:-2px;background:var(--accent);color:#fff;font-size:.72rem;
+      min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      padding:0 6px;box-shadow:0 6px 12px rgba(247,37,133,.35);
+    }
+
+    nav ul{
+      display:flex;list-style:none;justify-content:center;gap:6px;padding:10px 0 16px;
+      flex-wrap:wrap;
+    }
+    nav a{
+      text-decoration:none;color:var(--dark);font-weight:500;padding:8px 14px;border-radius:10px;transition:var(--transition)
+    }
+    nav a:hover,nav a.active{background:var(--primary);color:#fff}
+
+    /* Hero */
+    .hero{
+      position:relative;overflow:hidden;color:#fff;padding:90px 0;isolation:isolate;
+      background:radial-gradient(1200px 600px at 90% -20%,#7c8cf6 0%,transparent 60%),
+                 linear-gradient(135deg,#4361ee 0%,#3f37c9 100%);
+    }
+    .hero::after{
+      content:"";position:absolute;inset:auto -10% -20% -10%;height:280px;
+      background:radial-gradient(800px 220px at 50% 0%,rgba(255,255,255,.18),transparent 60%);
+      z-index:0;
+    }
+    .hero-content{position:relative;z-index:1;max-width:650px}
+    .hero h1{
+      font-family:'Montserrat',sans-serif;font-size:3.2rem;line-height:1.13;margin-bottom:16px;letter-spacing:.3px
+    }
+    .hero p{font-size:1.1rem;margin-bottom:28px;opacity:.95}
+    .btn{
+      display:inline-block;padding:14px 28px;background:var(--accent);color:#fff;border:none;border-radius:16px;
+      font-size:1rem;font-weight:700;cursor:pointer;text-decoration:none;transition:var(--transition);
+      box-shadow:0 10px 24px rgba(247,37,133,.35);
+    }
+    .btn:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(247,37,133,.45)}
+    .btn-outline{background:transparent;border:2px solid #fff;margin-left:12px;box-shadow:none}
+    .btn-outline:hover{background:rgba(255,255,255,.12)}
+
+    /* Sections */
+    .section-title{ text-align:center;margin:60px 0 36px;position:relative}
+    .section-title h2{
+      font-family:'Montserrat',sans-serif;font-size:2.2rem;display:inline-block;background:#fff;padding:0 16px;position:relative;z-index:1
+    }
+    .section-title::after{
+      content:"";position:absolute;top:50%;left:0;right:0;height:2px;background:var(--light-gray);z-index:0
+    }
+
+    /* Categories */
+    .categories{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px;margin-bottom:50px
+    }
+    .category-card{
+      background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);
+      transition:var(--transition);text-align:center;padding:28px 18px;border:1px solid rgba(15,18,35,.06)
+    }
+    .category-card:hover{transform:translateY(-8px) scale(1.01);box-shadow:var(--shadow-lg)}
+    .category-icon{
+      width:84px;height:84px;background:linear-gradient(180deg,#f6f8ff, #eef1ff);
+      border-radius:22px;margin:0 auto 16px;display:grid;place-items:center;color:var(--primary);font-size:1.8rem;
+      border:1px solid rgba(67,97,238,.15)
+    }
+
+    /* Products */
+    .products{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:26px;margin-bottom:24px
+    }
+    .product-card{
+      background:#fff;border-radius:18px;overflow:hidden;box-shadow:var(--shadow);transition:transform .2s ease, box-shadow .2s ease;
+      position:relative;border:1px solid rgba(15,18,35,.06)
+    }
+    .product-card:hover{transform:translateY(-10px);box-shadow:var(--shadow-lg)}
+    .product-badge{
+      position:absolute;top:14px;left:14px;background:var(--accent);color:#fff;padding:6px 12px;border-radius:40px;
+      font-size:.82rem;font-weight:700;z-index:2;box-shadow:0 8px 16px rgba(247,37,133,.35)
+    }
+    .product-image{width:100%;height:240px;object-fit:cover;display:block}
+    .product-info{padding:18px}
+    .product-title{font-size:1.1rem;margin-bottom:8px}
+    .product-price{display:flex;align-items:center;gap:10px;margin:10px 0 16px}
+    .current-price{font-size:1.25rem;font-weight:800;color:var(--primary)}
+    .original-price{font-size:.95rem;color:var(--gray);text-decoration:line-through}
+    .discount{background:rgba(76,201,240,.16);color:#2b8aa0;padding:4px 8px;border-radius:8px;font-size:.85rem;font-weight:700}
+    .product-actions{display:flex;align-items:center}
+    .add-to-cart{
+      flex:1;background:var(--primary);color:#fff;border:none;padding:10px 12px;border-radius:12px;cursor:pointer;
+      transition:var(--transition);font-weight:700
+    }
+    .add-to-cart:hover{background:var(--secondary)}
+    .remove-from-cart{
+      flex:1;background:var(--danger);color:#fff;border:none;padding:10px 12px;border-radius:12px;cursor:pointer;
+      transition:var(--transition);font-weight:700
+    }
+    .remove-from-cart:hover{background:#c92a35}
+    .wishlist{
+      width:42px;height:42px;border-radius:12px;background:#f6f7fb;border:1px solid rgba(15,18,35,.06);
+      margin-left:10px;cursor:pointer;transition:var(--transition);display:grid;place-items:center;color:#d23e64
+    }
+    .wishlist:hover{background:#ffebf3}
+
+    /* Submit area */
+    .submit-wrap{
+      display:flex;justify-content:center;margin:22px 0 64px;
+    }
+    #submit-cart{
+      background:var(--success);color:#fff;border:none;border-radius:14px;padding:14px 22px;font-weight:800;cursor:pointer;
+      box-shadow:0 10px 24px rgba(46,196,182,.3);transition:var(--transition)
+    }
+    #submit-cart:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(46,196,182,.45)}
+
+    /* Benefits */
+    .benefits{background:linear-gradient(to bottom,#f8f9ff,#eef1ff);padding:80px 0;margin-bottom:60px}
+    .benefits-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px}
+    .benefit-card{ text-align:center;padding:28px;background:#fff;border-radius:18px;box-shadow:var(--shadow);border:1px solid rgba(15,18,35,.06)}
+    .benefit-icon{font-size:2.4rem;color:var(--primary);margin-bottom:14px}
+
+    /* Testimonials */
+    .testimonials{margin-bottom:64px}
+    .testimonial-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+    .testimonial-card{background:#fff;border-radius:18px;padding:26px;box-shadow:var(--shadow);border:1px solid rgba(15,18,35,.06)}
+    .testimonial-content{font-style:italic;margin-bottom:18px;position:relative}
+    .testimonial-content::before{content:'"';font-size:3.4rem;position:absolute;top:-18px;left:-10px;color:#e5e7f3;font-family:Georgia,serif}
+    .testimonial-author{display:flex;align-items:center}
+    .author-avatar{width:50px;height:50px;border-radius:50%;object-fit:cover;margin-right:12px}
+    .author-info h4{font-size:1.05rem;margin-bottom:4px}
+    .author-info p{color:var(--gray);font-size:.9rem}
+
+    /* Newsletter */
+    .newsletter{background:var(--primary);color:#fff;padding:80px 0;text-align:center;margin-bottom:60px;border-top-left-radius:24px;border-top-right-radius:24px}
+    .newsletter h2{font-family:'Montserrat',sans-serif;font-size:2.3rem;margin-bottom:12px}
+    .newsletter p{max-width:600px;margin:0 auto 22px;font-size:1.05rem;opacity:.95}
+    .newsletter-form{max-width:520px;margin:0 auto;display:flex}
+    .newsletter-form input{
+      flex:1;padding:16px 18px;border:none;border-radius:16px 0 0 16px;font-size:1rem
+    }
+    .newsletter-form button{
+      background:var(--accent);color:#fff;border:none;padding:0 26px;border-radius:0 16px 16px 0;font-weight:700;cursor:pointer;transition:var(--transition)
+    }
+    .newsletter-form button:hover{background:#e91e63}
+
+    /* Footer */
+    footer{background:#0d1020;color:#fff;padding:60px 0 30px}
+    .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:36px;margin-bottom:36px}
+    .footer-col h3{font-size:1.35rem;margin-bottom:16px;position:relative;padding-bottom:10px}
+    .footer-col h3::after{content:"";position:absolute;bottom:0;left:0;width:50px;height:2px;background:var(--accent)}
+    .footer-links{list-style:none}
+    .footer-links li{margin-bottom:10px;color:#c9cbe4}
+    .footer-links a{color:#b8bbdc;text-decoration:none;transition:var(--transition)}
+    .footer-links a:hover{color:#fff;padding-left:4px}
+    .social-links{display:flex;gap:12px;margin-top:14px}
+    .social-links a{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.1);color:#fff;transition:var(--transition)}
+    .social-links a:hover{background:var(--primary);transform:translateY(-3px)}
+    .copyright{text-align:center;padding-top:22px;border-top:1px solid rgba(255,255,255,.08);color:#a7abcf;font-size:.9rem}
+
+    /* Loader plein écran */
+    .page-loader{
+      position:fixed;inset:0;background:rgba(255,255,255,.85);
+      display:flex;align-items:center;justify-content:center;z-index:2000;
+      opacity:0;visibility:hidden;transition:var(--transition)
+    }
+    .page-loader.active{opacity:1;visibility:visible}
+    .spinner{
+      width:56px;height:56px;border-radius:50%;
+      border:6px solid #e9edf8;border-top-color:var(--primary);
+      animation:spin 1s linear infinite;
+      box-shadow:0 8px 24px rgba(67,97,238,.25)
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* Toast */
+    .toast{
+      position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+      background:#0f1223;color:#fff;padding:12px 16px;border-radius:12px;box-shadow:0 10px 24px rgba(0,0,0,.35);
+      opacity:0;visibility:hidden;transition:var(--transition);z-index:2100;font-weight:600
+    }
+    .toast.show{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+
+    /* Floating cart button (mobile) */
+    .fab-cart{
+      position:fixed;right:16px;bottom:16px;width:58px;height:58px;border-radius:16px;background:var(--primary);
+      color:#fff;display:none;place-items:center;box-shadow:0 16px 34px rgba(67,97,238,.45);z-index:1300;border:none
+    }
+    .fab-cart .cart-count{top:-6px;right:-6px}
+    .fab-cart i{font-size:1.2rem}
+
+    /* Responsive */
+    @media (max-width:992px){.hero h1{font-size:2.6rem}}
+    @media (max-width:768px){
+      .header-top{flex-wrap:wrap}
+      .logo{order:1;margin-bottom:12px}
+      .search-bar{order:3;max-width:100%;margin:10px 0}
+      .header-icons{order:2}
+      .hero{padding:70px 0}
+      .hero h1{font-size:2.2rem}
+      .btn{padding:12px 22px;font-size:.98rem}
+      .newsletter-form{flex-direction:column}
+      .newsletter-form input,.newsletter-form button{width:100%;border-radius:16px;margin-bottom:10px}
+      .fab-cart{display:grid}
+    }
+  </style>
+</head>
+<body>
+  <!-- Loader -->
+  <div id="page-loader" class="page-loader"><div class="spinner"></div></div>
+  <div id="toast" class="toast">Action effectuée</div>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="header-top">
+        <a href="#" class="logo">
+          <i class="fas fa-graduation-cap"></i>
+          ChicÉtudiant
+        </a>
+
+        <div class="search-bar">
+          <input type="text" placeholder="Rechercher des vêtements, accessoires...">
+          <button aria-label="Rechercher"><i class="fas fa-search"></i></button>
+        </div>
+
+        <div class="header-icons">
+          <button class="icon-btn" aria-label="Mon compte">
+            <i class="fas fa-user"></i>
+          </button>
+          <button class="icon-btn" aria-label="Favoris">
+            <i class="fas fa-heart"></i>
+          </button>
+          <button class="icon-btn cart-btn" aria-label="Panier">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
+          </button>
+        </div>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="#" class="active">Accueil</a></li>
+          <li><a href="#">Nouveautés</a></li>
+          <li><a href="#">Hommes</a></li>
+          <li><a href="#">Femmes</a></li>
+          <li><a href="#">Accessoires</a></li>
+          <li><a href="#">Promotions</a></li>
+          <li><a href="#">À propos</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Mode chic pour étudiants<br>à prix abordables</h1>
+        <p>Découvrez notre collection exclusive conçue pour les étudiants. Qualité, style et prix étudiés spécialement pour vous.</p>
+        <a href="#" class="btn">Découvrir la collection</a>
+        <a href="#" class="btn btn-outline">Voir les promotions</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="container">
+    <div class="section-title">
+      <h2>Catégories populaires</h2>
+    </div>
+
+    <div class="categories">
+      <div class="category-card">
+        <div class="category-icon"><i class="fas fa-tshirt"></i></div>
+        <h3>T-Shirts</h3>
+        <p>Basiques et stylés pour toutes les occasions</p>
+        <a href="#" class="btn">Voir collection</a>
+      </div>
+
+      <div class="category-card">
+        <div class="category-icon"><i class="fas fa-vest"></i></div>
+        <h3>Chemises</h3>
+        <p>Élégance et confort pour un look professionnel</p>
+        <a href="#" class="btn">Voir collection</a>
+      </div>
+
+      <div class="category-card">
+        <div class="category-icon"><i class="fas fa-shoe-prints"></i></div>
+        <h3>Chaussures</h3>
+        <p>Confortables et tendance pour le campus</p>
+        <a href="#" class="btn">Voir collection</a>
+      </div>
+
+      <div class="category-card">
+        <div class="category-icon"><i class="fas fa-socks"></i></div>
+        <h3>Accessoires</h3>
+        <p>Petits détails qui font toute la différence</p>
+        <a href="#" class="btn">Voir collection</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="container">
+    <div class="section-title">
+      <h2>Produits populaires</h2>
+    </div>
+
+    <div class="products">
+      <!-- Product 1 -->
+      <div class="product-card"
+           data-id="tee-001"
+           data-name="T-Shirt Chic Étudiant"
+           data-price="4500"
+           data-image="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80">
+        <span class="product-badge">-20%</span>
+        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80" alt="T-Shirt Chic Étudiant" class="product-image">
+        <div class="product-info">
+          <h3 class="product-title">T-Shirt Chic Étudiant</h3>
+          <div class="product-price">
+            <span class="current-price">4,500 FCFA</span>
+            <span class="original-price">5,600 FCFA</span>
+            <span class="discount">-20%</span>
+          </div>
+          <div class="product-actions">
+            <button class="add-to-cart toggle-cart">Ajouter au panier</button>
+            <button class="wishlist" aria-label="Ajouter aux favoris"><i class="far fa-heart"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="product-card"
+           data-id="chem-002"
+           data-name="Chemise Élégante"
+           data-price="7200"
+           data-image="https://images.unsplash.com/photo-1598032895397-b9472444bf93?auto=format&fit=crop&w=800&q=80">
+        <img src="https://images.unsplash.com/photo-1598032895397-b9472444bf93?auto=format&fit=crop&w=800&q=80" alt="Chemise Élégante" class="product-image">
+        <div class="product-info">
+          <h3 class="product-title">Chemise Élégante</h3>
+          <div class="product-price">
+            <span class="current-price">7,200 FCFA</span>
+          </div>
+          <div class="product-actions">
+            <button class="add-to-cart toggle-cart">Ajouter au panier</button>
+            <button class="wishlist" aria-label="Ajouter aux favoris"><i class="far fa-heart"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="product-card"
+           data-id="bask-003"
+           data-name="Baskets Campus"
+           data-price="12500"
+           data-image="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=800&q=80">
+        <span class="product-badge">Nouveau</span>
+        <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=800&q=80" alt="Baskets Campus" class="product-image">
+        <div class="product-info">
+          <h3 class="product-title">Baskets Campus</h3>
+          <div class="product-price">
+            <span class="current-price">12,500 FCFA</span>
+            <span class="original-price">15,000 FCFA</span>
+            <span class="discount">-17%</span>
+          </div>
+          <div class="product-actions">
+            <button class="add-to-cart toggle-cart">Ajouter au panier</button>
+            <button class="wishlist" aria-label="Ajouter aux favoris"><i class="far fa-heart"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="product-card"
+           data-id="robe-004"
+           data-name="Robe Chic Étudiante"
+           data-price="9800"
+           data-image="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=800&q=80">
+        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=800&q=80" alt="Robe Chic Étudiante" class="product-image">
+        <div class="product-info">
+          <h3 class="product-title">Robe Chic Étudiante</h3>
+          <div class="product-price">
+            <span class="current-price">9,800 FCFA</span>
+          </div>
+          <div class="product-actions">
+            <button class="add-to-cart toggle-cart">Ajouter au panier</button>
+            <button class="wishlist" aria-label="Ajouter aux favoris"><i class="far fa-heart"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="submit-wrap">
+      <button id="submit-cart" aria-label="Soumettre le panier">
+        <i class="fa-solid fa-paper-plane"></i> Soumettre le panier
+      </button>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="benefits">
+    <div class="container">
+      <div class="section-title">
+        <h2>Pourquoi ChicÉtudiant ?</h2>
+      </div>
+
+      <div class="benefits-container">
+        <div class="benefit-card">
+          <div class="benefit-icon"><i class="fas fa-tag"></i></div>
+          <h3>Prix étudiants</h3>
+          <p>Des prix spécialement étudiés pour s'adapter à votre budget</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon"><i class="fas fa-truck"></i></div>
+          <h3>Livraison rapide</h3>
+          <p>Livraison sur tout le Bénin en moins de 72 heures</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon"><i class="fas fa-undo"></i></div>
+          <h3>Retours faciles</h3>
+          <p>Retournez vos articles gratuitement sous 15 jours</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon"><i class="fas fa-graduation-cap"></i></div>
+          <h3>Style étudiant</h3>
+          <p>Des collections conçues pour les étudiants par des étudiants</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="container testimonials">
+    <div class="section-title">
+      <h2>Ce que disent nos clients</h2>
+    </div>
+
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          En tant qu'étudiant, trouver des vêtements de qualité à prix abordable était un défi. ChicÉtudiant a changé la donne pour moi. Leur collection est parfaite pour le campus !
+        </div>
+        <div class="testimonial-author">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Koffi" class="author-avatar">
+          <div class="author-info">
+            <h4>Koffi Agossa</h4>
+            <p>Étudiant en Informatique, UNSTIM</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          J'adore la qualité des vêtements et le service client est exceptionnel. La livraison a été rapide et j'ai pu retourner un article sans problème. Je recommande vivement !
+        </div>
+        <div class="testimonial-author">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Fatou" class="author-avatar">
+          <div class="author-info">
+            <h4>Fatou Diallo</h4>
+            <p>Étudiante en Droit, UAC</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          Les réductions pour étudiants sont vraiment avantageuses. J'ai acheté plusieurs articles à des prix imbattables. Le style est jeune et moderne, parfait pour les cours.
+        </div>
+        <div class="testimonial-author">
+          <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Marc" class="author-avatar">
+          <div class="author-info">
+            <h4>Marc Dossou</h4>
+            <p>Étudiant en Économie, UAC</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <div class="container">
+      <h2>Restez dans la boucle</h2>
+      <p>Inscrivez-vous à notre newsletter pour recevoir des offres exclusives, des conseils style et des nouveautés directement dans votre boîte mail.</p>
+
+      <form class="newsletter-form">
+        <input type="email" placeholder="Votre adresse email">
+        <button type="submit">S'inscrire</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>ChicÉtudiant</h3>
+          <p>Mode chic et abordable pour tous les étudiants du Bénin. Qualité, style et prix étudiés pour vous.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h3>Navigation</h3>
+          <ul class="footer-links">
+            <li><a href="#">Accueil</a></li>
+            <li><a href="#">Nouveautés</a></li>
+            <li><a href="#">Hommes</a></li>
+            <li><a href="#">Femmes</a></li>
+            <li><a href="#">Accessoires</a></li>
+            <li><a href="#">Promotions</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Informations</h3>
+          <ul class="footer-links">
+            <li><a href="#">À propos</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Livraison</a></li>
+            <li><a href="#">Retours</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Conditions d'utilisation</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Contact</h3>
+          <ul class="footer-links">
+            <li><i class="fas fa-map-marker-alt"></i> Cotonou, Bénin</li>
+            <li><i class="fas fa-phone"></i> +229 61 234 567</li>
+            <li><i class="fas fa-envelope"></i> contact@chicetudiant.bj</li>
+            <li><i class="fas fa-clock"></i> Lun-Sam: 9h-18h</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="copyright">
+        <p>&copy; 2025 ChicÉtudiant. Tous droits réservés.</p>
+      </div>
+    </div>
+   </footer>
+
+   <script>
+    // Panier en mémoire
+    let cart = []; // {id, name, price (number), image, qty}
+
+    // Utilitaires UI
+    const loader = document.getElementById('page-loader');
+    const toast = document.getElementById('toast');
+
+    function showLoader(duration=900){
+      loader.classList.add('active');
+      setTimeout(() => loader.classList.remove('active'), duration);
+    }
+    function showToast(message){
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(()=>toast.classList.remove('show'), 1400);
+    }
+    function updateCartCount(){
+      document.querySelector('.cart-count').textContent = cart.length;
+    }
+    function inCart(productId){
+      return cart.some(p => p.id === productId);
+    }
+    function setButtonState(card){
+      const btn = card.querySelector('.toggle-cart');
+      const id = card.dataset.id;
+      if(inCart(id)){
+        btn.textContent = 'Supprimer du panier';
+        btn.classList.remove('add-to-cart');
+        btn.classList.add('remove-from-cart');
+      }else{
+        btn.textContent = 'Ajouter au panier';
+        btn.classList.remove('remove-from-cart');
+        btn.classList.add('add-to-cart');
+      }
+    }
+
+    // Actions panier
+    function addToCart(product){
+      if(inCart(product.id)) return;
+      cart.push({...product, qty:1});
+      updateCartCount();
+      showLoader();
+      showToast('Ajouté au panier');
+    }
+    function removeFromCart(productId){
+      cart = cart.filter(p => p.id !== productId);
+      updateCartCount();
+      showLoader();
+      showToast('Supprimé du panier');
+    }
+
+    // Binding des boutons produit
+    document.querySelectorAll('.product-card').forEach(card => {
+      setButtonState(card);
+      card.querySelector('.toggle-cart').addEventListener('click', function(){
+        const product = {
+          id: card.dataset.id,
+          name: card.dataset.name,
+          price: parseInt(card.dataset.price, 10) || 0,
+          image: card.dataset.image
+        };
+        if(inCart(product.id)){
+          removeFromCart(product.id);
+        }else{
+          addToCart(product);
+        }
+        setButtonState(card);
+      });
+    });
+
+    // Soumission au backend
+    document.getElementById('submit-cart').addEventListener('click', async () => {
+      if(cart.length === 0){
+        showToast('Votre panier est vide');
+        return;
+      }
+      showLoader(1200);
+      try{
+        const res = await fetch('/api/panier', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({ items: cart })
+        });
+        if(!res.ok) throw new Error('Réponse serveur invalide');
+        const data = await res.json();
+        // Reset UI
+        cart = [];
+        updateCartCount();
+        document.querySelectorAll('.product-card').forEach(setButtonState);
+        showToast('Panier soumis. Commande #' + data.orderId);
+      }catch(err){
+        console.error(err);
+        showToast("Erreur d'envoi du panier");
+      }
+    });
+   </script>
+ </body>
+ </html>
