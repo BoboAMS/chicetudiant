@@ -193,7 +193,7 @@ const maintenancePage = `
 </body>
 </html>
 `;
-app.addHook('preHandler', async (req, res) => {
+fastify.addHook('preHandler', async (req, res) => {
   if (isMaintenanceMode) {
     res.type('text/html').send(maintenancePage);
   }
