@@ -199,32 +199,8 @@ fastify.get('/', async (req, res) => {
 });
 
 // Route pour le formulaire de contact
-fastify.post('/#', async (request, reply) => {
-  const { name, email, projectType, message } = request.body;
-
-  const mailOptions = {
-    from: 'amslubfontainegeneration@gmail.com',
-    to: 'amslubfontainegeneration@gmail.com',
-    subject: `Nouveau message de ${name} - Type: ${projectType}`,
-    html: emailTemplate({ name, email, projectType, message })
-  };
-
-  try {
-    await transporter.sendMail(mailOptions);
-    reply.send({ success: true, message: 'Message envoyé avec succès' });
-  } catch (error) {
-    fastify.log.error(error);
-    reply.status(500).send({ success: false, message: 'Erreur lors de l\'envoi du message' });
-  }
-});
-
-// Handler pour toutes les autres routes - page de maintenance
-fastify.setNotFoundHandler((request, reply) => {
-  if (request.raw.url !== '/' && !request.raw.url.includes('.')) {
+fastify.get('/index.html#', async (request, reply) => {
     reply.type('text/html').send(maintenancePage);
-  } else {
-    reply.callNotFound();
-  }
 });
 
 // Démarrage du serveur
