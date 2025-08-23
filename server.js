@@ -10,6 +10,7 @@ const host = ("RENDER" in process.env) ? `0.0.0.0` : `localhost`;
 // Initialisation du serveur Fastify
 const fastify = Fastify({ logger: true });
 const rootDir = dirname((fileURLToPath(import.meta.url)))
+const isMaintenanceMode = true;
 
 // Configuration CORS
 await fastify.register(cors, {
@@ -192,6 +193,11 @@ const maintenancePage = `
 </body>
 </html>
 `;
+app.addHook('preHandler', async (req, res) => {
+  if (isMaintenanceMode) {
+    res.type('text/html').send(maintenancePage);
+  }
+});
 
 // Route pour la page d'accueil
 fastify.get('/', async (req, res) => {
@@ -199,9 +205,7 @@ fastify.get('/', async (req, res) => {
 });
 
 // Route pour le formulaire de contact
-fastify.get('/index.html#', async (request, reply) => {
-    reply.type('text/html').send(maintenancePage);
-});
+
 
 // Démarrage du serveur
 fastify.listen({host: host, port: 3000 }, function (err, address) {
